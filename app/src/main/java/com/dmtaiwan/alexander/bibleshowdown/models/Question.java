@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class Question {
 
-    public Question(String question, ArrayList<String> correctAnswers) {
-        this.question = question;
-        this.correctAnswers = correctAnswers;
-    }
-
     private String question;
-    private ArrayList<String> correctAnswers;
+    private ArrayList<Answer> answers;
+
+    public Question(String question, ArrayList<Answer> answers) {
+        this.question = question;
+        this.answers = answers;
+    }
 
     public String getQuestion() {
         return question;
@@ -24,11 +24,11 @@ public class Question {
         this.question = question;
     }
 
-    public ArrayList<String> getCorrectAnswers() {
-        return correctAnswers;
+    public ArrayList<Answer> getAnswers() {
+        return answers;
     }
 
-    public void setCorrectAnswers(ArrayList<String> correctAnswers) {
-        this.correctAnswers = correctAnswers;
+    public void setAnswers(ArrayList<Answer> answers) {
+        this.answers = answers;
     }
 }

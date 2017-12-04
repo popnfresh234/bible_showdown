@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BibleShowdown.iml" filepath="$PROJECT_DIR$/BibleShowdown.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bible_showdown.iml" filepath="$PROJECT_DIR$/bible_showdown.iml" />
     </modules>
   </component>
 </project>

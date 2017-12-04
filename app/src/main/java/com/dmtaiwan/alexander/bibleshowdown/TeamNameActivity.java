@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.dmtaiwan.alexander.bibleshowdown.game.GameActivity;
+import com.dmtaiwan.alexander.bibleshowdown.utils.Utils;
+
 /**
  * Created by Alexander on 12/2/2017.
  */

@@ -2,7 +2,7 @@ package com.dmtaiwan.alexander.bibleshowdown.models;
 
 import android.content.Context;
 
-import com.dmtaiwan.alexander.bibleshowdown.Utils;
+import com.dmtaiwan.alexander.bibleshowdown.utils.Utils;
 
 import java.util.ArrayList;
 

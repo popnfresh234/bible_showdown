@@ -3,4 +3,7 @@
     <string name="button_submit">Submit</string>
     <string name="hint_team_name">Enter team name here</string>
     <string name="default_team_name">Blue Team</string>
+    <string name="button_enter">ENTER</string>
+    <string name="button_next">NEXT</string>
+    <string name="default_score">0</string>
 </resources>
