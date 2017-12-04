@@ -25,7 +25,9 @@ import java.util.ArrayList;
 
 public class GameFragment extends Fragment {
 
-    private int score;
+    private ActivityCallback callback;
+    private Button nextButton;
+    private Button enterButton;
 
     private Question question;
     private String teamName;
@@ -41,11 +43,12 @@ public class GameFragment extends Fragment {
     private ImageView smileyTwo;
     private ImageView smileyThree;
 
-    public static GameFragment newInstance(Question question, String teamName, String position) {
+    public static GameFragment newInstance(Question question, String teamName, String position, ActivityCallback callback) {
         GameFragment gameFragment = new GameFragment();
         gameFragment.question = question;
         gameFragment.teamName = teamName;
         gameFragment.position = position;
+        gameFragment.callback = callback;
         return gameFragment;
     }
 
@@ -60,6 +63,16 @@ public class GameFragment extends Fragment {
         smileyOne = (ImageView) rootView.findViewById(R.id.image_view_fail_one);
         smileyTwo = (ImageView) rootView.findViewById(R.id.image_view_fail_two);
         smileyThree = (ImageView) rootView.findViewById(R.id.image_view_fail_three);
+
+        //Handle button
+        nextButton = (Button) rootView.findViewById(R.id.button_next);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callback.onNextClicked();
+                callback.addScore(totalScore);
+            }
+        });
 
         //Set team name
         TextView teamNameTextView = rootView.findViewById(R.id.text_view_team_name);
@@ -79,7 +92,7 @@ public class GameFragment extends Fragment {
         listView.setAdapter(adapter);
 
 
-        Button enterButton = rootView.findViewById(R.id.button_enter);
+        enterButton = rootView.findViewById(R.id.button_enter);
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +100,17 @@ public class GameFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //Reset all answers
+        for (Answer answer : answers) {
+            answer.setCorrect(false);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void validateEntry() {
@@ -103,16 +127,15 @@ public class GameFragment extends Fragment {
                     correct = true;
                     scoreTextView.setText(String.valueOf(totalScore));
                     adapter.notifyDataSetChanged();
-                } else if (answer.getAnswer().equals(entry) && answer.isCorrect()) {
-                    correct = true;
                 }
             }
             if (!correct) {
                 incorrect++;
                 calculateSmileys();
             }
-        }else{
+        } else {
             Toast.makeText(getActivity(), "No more guesses!", Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -127,6 +150,9 @@ public class GameFragment extends Fragment {
                 break;
             case 3:
                 smileyThree.setVisibility(View.VISIBLE);
+                Toast.makeText(getActivity(), "No more guesses!", Toast.LENGTH_SHORT).show();
+                enterButton.setEnabled(false);
+                nextButton.setVisibility(View.VISIBLE);
                 break;
             default:
                 break;
@@ -134,4 +160,9 @@ public class GameFragment extends Fragment {
         }
     }
 
+    public interface ActivityCallback {
+        public void onNextClicked();
+
+        public void addScore(int score);
+    }
 }

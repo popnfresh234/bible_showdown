@@ -50,6 +50,8 @@
         app:layout_constraintStart_toEndOf="@id/guideline75"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/text_view_game_question"
+        android:id="@+id/button_next"
+        android:visibility="gone"
         android:text="@string/button_next"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>

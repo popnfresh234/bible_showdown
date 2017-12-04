@@ -3,12 +3,14 @@ package com.dmtaiwan.alexander.bibleshowdown.game;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 
 import com.dmtaiwan.alexander.bibleshowdown.R;
 import com.dmtaiwan.alexander.bibleshowdown.models.Game;
 import com.dmtaiwan.alexander.bibleshowdown.models.GameBank;
+import com.dmtaiwan.alexander.bibleshowdown.utils.GamePager;
 import com.dmtaiwan.alexander.bibleshowdown.utils.Utils;
 
 import java.util.ArrayList;
@@ -17,10 +19,11 @@ import java.util.ArrayList;
  * Created by Alexander on 12/2/2017.
  */
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements GameFragment.ActivityCallback, ScoreFragment.ScoreListener{
 
+    private int score;
     private String teamName;
-    private ViewPager gamePager;
+    private GamePager gamePager;
     private GamePagerAdapter gamePagerAdapter;
     private ArrayList<Game> games;
 
@@ -41,10 +44,27 @@ public class GameActivity extends AppCompatActivity {
 
 
         //Setup Viewpager
-        gamePager = (ViewPager) findViewById(R.id.view_pager_game);
+        gamePager = (GamePager) findViewById(R.id.view_pager_game);
 
         Game game = games.get(0);
-        gamePagerAdapter = new GamePagerAdapter(getSupportFragmentManager(), game.getQuestions(), teamName);
+        gamePagerAdapter = new GamePagerAdapter(getSupportFragmentManager(), game.getQuestions(), teamName, this, this);
         gamePager.setAdapter(gamePagerAdapter);
+    }
+
+    @Override
+    public void onNextClicked() {
+        gamePager.arrowScroll(View.FOCUS_RIGHT);
+    }
+
+    @Override
+    public void addScore(int score) {
+        this.score += score;
+        Log.i("SCORE ", this.score+"");
+    }
+
+
+    @Override
+    public int getScore() {
+        return this.score;
     }
 }
